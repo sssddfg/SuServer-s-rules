@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SuServer - 服务器规则</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .house-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .house-icon:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .house-icon svg {
+            width: 28px;
+            height: 28px;
+            fill: white;
+        }
+
+        .header-title {
+            color: white;
+        }
+
+        .header-title h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .header-title p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* Rules Section */
+        .rules-section {
+            padding: 40px;
+        }
+
+        .rules-section h2 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .rule-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .rule-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Checkmark Icon */
+        .rule-item.checkmark .icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .rule-item.checkmark .icon svg {
+            width: 32px;
+            height: 32px;
+            fill: white;
+        }
+
+        .rule-item.checkmark .content h3 {
+            font-size: 18px;
+            color: #11998e;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .rule-item.checkmark .content p {
+            font-size: 15px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Warning Icon */
+        .rule-item.warning .icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .rule-item.warning .icon svg {
+            width: 32px;
+            height: 32px;
+            fill: white;
+        }
+
+        .rule-item.warning .content h3 {
+            font-size: 18px;
+            color: #f5576c;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .rule-item.warning .content p {
+            font-size: 15px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Cross Icon */
+        .rule-item.cross .icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .rule-item.cross .icon svg {
+            width: 32px;
+            height: 32px;
+            fill: white;
+        }
+
+        .rule-item.cross .content h3 {
+            font-size: 18px;
+            color: #eb3349;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .rule-item.cross .content p {
+            font-size: 15px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            background: #f8f9fa;
+            padding: 20px 40px;
+            text-align: center;
+            color: #999;
+            font-size: 13px;
+            border-top: 1px solid #eee;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                border-radius: 12px;
+            }
+
+            .header {
+                padding: 20px 25px;
+            }
+
+            .header-left {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .house-icon {
+                width: 40px;
+                height: 40px;
+            }
+
+            .house-icon svg {
+                width: 24px;
+                height: 24px;
+            }
+
+            .header-title h1 {
+                font-size: 24px;
+            }
+
+            .header-title p {
+                font-size: 13px;
+            }
+
+            .rules-section {
+                padding: 25px;
+            }
+
+            .rule-item {
+                padding: 20px;
+                gap: 15px;
+            }
+
+            .rule-item .icon {
+                width: 48px;
+                height: 48px;
+            }
+
+            .rule-item .icon svg {
+                width: 28px;
+                height: 28px;
+            }
+
+            .rule-item .content h3 {
+                font-size: 16px;
+            }
+
+            .rule-item .content p {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-left">
+                <a href="https://mc.speroo.top" class="house-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+                    </svg>
+                </a>
+                <div class="header-title">
+                    <h1>服务器规则</h1>
+                    <p>请遵守以下规则，共同维护良好游戏环境</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rules Section -->
+        <div class="rules-section">
+            <h2>SuServer服务器规则</h2>
+
+            <!-- Green Checkmark Rules -->
+            <div class="rule-item checkmark">
+                <div class="icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                </div>
+                <div class="content">
+                    <h3>尊重其他玩家</h3>
+                    <p>友好交流，营造和谐的社区氛围。</p>
+                </div>
+            </div>
+
+            <div class="rule-item checkmark">
+                <div class="icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                </div>
+                <div class="content">
+                    <h3>未经允许不擅自拿取或破坏</h3>
+                    <p>不擅自拿取或破坏他人物品与建筑。</p>
+                </div>
+            </div>
+
+            <div class="rule-item checkmark">
+                <div class="icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                </div>
+                <div class="content">
+                    <h3>合理使用公共设施</h3>
+                    <p>使用完毕后恢复原状。</p>
+                </div>
+            </div>
+
+            <!-- Yellow Warning Rules -->
+            <div class="rule-item warning">
+                <div class="icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                    </svg>
+                </div>
+                <div class="content">
+                    <h3>避免影响服务器性能</h3>
+                    <p>避免建造影响服务器性能的大型无意义设施（如高频红石、大量实体堆积）。</p>
+                </div>
+            </div>
+
+            <div class="rule-item warning">
+                <div class="icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                    </svg>
+                </div>
+                <div class="content">
+                    <h3>发现漏洞请反馈，严禁利用漏洞获取不当利益</h3>
+                    <p>发现漏洞请在群内反馈，严禁利用漏洞获取不当利益。</p>
+                </div>
+            </div>
+
+            <!-- Red Cross Rules -->
+            <div class="rule-item cross">
+                <div class="icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                </div>
+                <div class="content">
+                    <h3>禁止作弊、使用外挂或任何形式的不公平客户端修改</h3>
+                    <p>严禁作弊、使用外挂或任何形式的不公平客户端修改。</p>
+                </div>
+            </div>
+
+            <div class="rule-item cross">
+                <div class="icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                </div>
+                <div class="content">
+                    <h3>严禁发布任何违法违规内容</h3>
+                    <p>严禁发布任何违法违规内容，包括但不限于政治敏感言论、人身攻击、恶意骚扰。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            © 2026 SuServer • 共同维护良好游戏环境
+        </div>
+    </div>
+</body>
+</html>
